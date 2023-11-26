@@ -1,0 +1,796 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "GitHub Repository Lookup",
+      "description": "Retrieves information of a specified GitHub repository.",
+      "version": "v1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://api.github.com"
+      }
+    ],
+    "paths": {
+      "/user/repos": {
+        "get": {
+            "summary": "List repositories of the user",
+            "operationId": "listUserRepos",
+            "responses": {
+              "200": {
+                "description": "Successful operation",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "The name of the repository"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "The description of the repository"
+                          },
+                          "private": {
+                            "type": "boolean",
+                            "description": "Whether the repository is private or not"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+            "post": {
+              "summary": "Create a repository",
+              "operationId": "createRepo",
+              "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "The name of the repository"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "The description of the repository"
+                        },
+                        "private": {
+                          "type": "boolean",
+                          "description": "Whether the repository is private or not"
+                        }
+                      },
+                      "required": ["name"]
+                    }
+                  }
+                }
+              }
+            }
+      },
+      "/search/code": {
+        "get": {
+          "summary": "Search code in repositories",
+          "operationId": "searchCode",
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The search keywords, as well as any qualifiers."
+            },
+            {
+              "name": "sort",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The sort field. Can be 'indexed', or 'score'. Default is 'score'."
+            },
+            {
+              "name": "order",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The sort order. Can be 'asc' or 'desc'. Default is 'desc'."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "total_count": {
+                        "type": "integer",
+                        "description": "The total number of matches"
+                      },
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "The search results"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/repos/{owner}/{repo}": {
+        "get": {
+              "summary": "Get a repository",
+              "operationId": "getRepo",
+              "parameters": [
+                {
+                  "name": "owner",
+                  "in": "path",
+                  "description": "The owner of the GitHub repository",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "repo",
+                  "in": "path",
+                  "description": "The name of the GitHub repository",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "patch": {
+                "summary": "Update a repository",
+                "operationId": "updateRepo",
+                "parameters": [
+                  {
+                    "name": "owner",
+                    "in": "path",
+                    "description": "The owner of the GitHub repository",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "repo",
+                    "in": "path",
+                    "description": "The name of the GitHub repository",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "The name of the repository"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "The description of the repository"
+                          },
+                          "private": {
+                            "type": "boolean",
+                            "description": "Whether the repository is private or not"
+                          }
+                        },
+                        "required": ["name"]
+                      }
+                    }
+                  }
+                }
+              }
+      },
+      "/repos/{owner}/{repo}/zipball": {
+            "get": {
+              "description": "Get a zip file of a specific GitHub repository",
+              "operationId": "getRepoZip",
+              "parameters": [
+                {
+                  "name": "owner",
+                  "in": "path",
+                  "description": "The owner of the GitHub repository",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "repo",
+                  "in": "path",
+                  "description": "The name of the GitHub repository",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "ref",
+                  "in": "query",
+                  "description": "Optional parameter indicating a valid Git reference. If not provided, the default branch will be used.",
+                  "required": false,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "deprecated": false
+            }
+      },
+      "/repos/{owner}/{repo}/commits": {
+        "get": {
+          "description": "Get commits for a specific GitHub repository",
+          "operationId": "getRepoCommits",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "description": "The owner of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "description": "The name of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "deprecated": false
+        }
+      },
+      "/repos/{owner}/{repo}/branches": {
+        "get": {
+          "description": "Get branches for a specific GitHub repository",
+          "operationId": "getRepoBranches",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "description": "The owner of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "description": "The name of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "deprecated": false
+        }
+      },
+      "/repos/{owner}/{repo}/branches/{branch}": {
+        "get": {
+          "description": "Get branches for a specific GitHub repository",
+          "operationId": "getRepoBranch",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "description": "The owner of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "description": "The name of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "branch",
+              "in": "path",
+              "description": "The name of the GitHub repository branch",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "deprecated": false
+        }
+      },
+      "/repos/{owner}/{repo}/issues": {
+        "get": {
+            "description": "Get issues for a specific GitHub repository",
+            "operationId": "getRepoIssues",
+            "parameters": [
+                {
+                  "name": "owner",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "repo",
+                  "in": "path",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "state",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                    "type": "string",
+                    "enum": ["open", "closed", "all"]
+                  },
+                  "description": "Indicates the state of the issues to return. Can be either open, closed, or all."
+                }
+              ],
+            
+            "deprecated": false
+          },
+        "post": {
+          "description": "Create a new issue in a specific GitHub repository",
+          "operationId": "createRepoIssue",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "description": "The owner of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "description": "The name of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Title of the issue"
+                    },
+                    "body": {
+                      "type": "string",
+                      "description": "Content of the issue"
+                    },
+                    "assignees": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "GitHub usernames to assign to this issue"
+                    }
+                  },
+                  "required": ["title"]
+                }
+              }
+            }
+          },
+          "deprecated": false
+        }
+      },
+      "/repos/{owner}/{repo}/issues/{issue_number}": {
+        "patch": {
+          "description": "Update an issue in a specific GitHub repository",
+          "operationId": "updateRepoIssue",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "description": "The owner of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "description": "The name of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "issue_number",
+              "in": "path",
+              "description": "The number of the issue to update",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": false,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Title of the issue"
+                    },
+                    "body": {
+                      "type": "string",
+                      "description": "Content of the issue"
+                    },
+                    "assignees": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "GitHub usernames to assign to this issue"
+                    },
+                    "state": {
+                      "type": "string",
+                      "enum": ["open", "closed"],
+                      "description": "State of the issue"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "deprecated": false
+        }
+      },
+      "/repos/{owner}/{repo}/contents/{path}": {
+        "get": {
+            "description": "Get contents of a specific file or directory in a GitHub repository",
+            "operationId": "getRepoContents",
+            "parameters": [
+              {
+                "name": "owner",
+                "in": "path",
+                "description": "The owner of the GitHub repository",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "repo",
+                "in": "path",
+                "description": "The name of the GitHub repository",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "path",
+                "in": "path",
+                "description": "The file or directory path in the GitHub repository",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "deprecated": false
+          },
+        "put": {
+          "description": "Create a new file in a specific GitHub repository",
+          "operationId": "createFileInRepo",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "description": "The owner of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "description": "The name of the GitHub repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "path",
+              "in": "path",
+              "description": "The content path in the repository",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "description": "The commit message"
+                      },
+                      "content": {
+                        "type": "string",
+                        "description": "The new file content, in Base64 encoding"
+                      },
+                      "sha": {
+                        "type": "string",
+                        "description": "Required if you are updating a file. The blob SHA of the file being replaced"
+                      },
+                      "branch": {
+                        "type": "string",
+                        "description": "The branch name"
+                      }
+                    },
+                    "required": ["message", "content"]
+                  }
+                }
+              }
+          },
+          "deprecated": false
+        },
+        "delete": {
+            "summary": "Delete a file in a repository",
+            "operationId": "deleteRepoContents",
+            "parameters": [
+              {
+                "name": "owner",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "repo",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "path",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "description": "The commit message"
+                      },
+                      "sha": {
+                        "type": "string",
+                        "description": "The blob SHA of the file being deleted"
+                      },
+                      "branch": {
+                        "type": "string",
+                        "description": "The branch name"
+                      }
+                    },
+                    "required": ["message", "sha"]
+                  }
+                }
+              }
+            }
+          }
+        
+      },
+      "/repos/{owner}/{repo}/issues/{issue_number}/comments/{comment_id}": {
+        "get": {
+          "summary": "Get a comment for an issue",
+          "operationId": "getIssueComment",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "issue_number",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "comment_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ]
+        }
+      },
+      "/repos/{owner}/{repo}/issues/{issue_number}/comments": {
+        "post": {
+          "summary": "Create a comment for an issue",
+          "operationId": "createIssueComment",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "issue_number",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "body": {
+                      "type": "string",
+                      "description": "The text of the comment"
+                    }
+                  },
+                  "required": ["body"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "/repos/{owner}/{repo}/issues/comments/{comment_id}": {
+        "patch": {
+          "summary": "Update a comment for an issue",
+          "operationId": "updateIssueComment",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "comment_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "body": {
+                      "type": "string",
+                      "description": "The text of the comment"
+                    }
+                  },
+                  "required": ["body"]
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      
+    },
+    "components": {
+      "schemas": {}
+    }
+  }
+  
