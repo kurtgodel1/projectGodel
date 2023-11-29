@@ -689,6 +689,36 @@
         }
       },
       "/repos/{owner}/{repo}/issues/{issue_number}/comments": {
+        "get": {
+          "summary": "List comments on an issue",
+          "operationId": "listIssueComments",
+          "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "issue_number",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ]
+        },
         "post": {
           "summary": "Create a comment for an issue",
           "operationId": "createIssueComment",
