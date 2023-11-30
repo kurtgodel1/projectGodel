@@ -1,21 +1,29 @@
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { connect } from 'react-redux';
-import { fetchGraphData } from '../store/actions/graphDataActions'; // Adjust the path as needed
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState } from '../store/store'; // Update the path as needed
+import { fetchGraphData } from '../store/actions/graphDataActions'; // Update the path as needed
 
-interface ThreeDSurfaceGraphProps {
+// Map Redux state to component props
+const mapStateToProps = (state: RootState) => ({
+  graphData: state.graphData
+});
+
+// Map Redux actions to component props
+const mapDispatchToProps = { fetchGraphData };
+
+// Create a connector
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+// Infer props from the connector
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+// Define component props type
+type ThreeDSurfaceGraphProps = PropsFromRedux & {
   width: number;
   height: number;
-  graphData: {
-    data: {
-      x: number[][];
-      y: number[][];
-      z: number[][];
-    };
-  };
-  fetchGraphData: () => void;
-}
+};
 
 const ThreeDSurfaceGraph: React.FC<ThreeDSurfaceGraphProps> = ({ width, height, graphData, fetchGraphData }) => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -64,16 +72,15 @@ const ThreeDSurfaceGraph: React.FC<ThreeDSurfaceGraphProps> = ({ width, height, 
     };
     animate();
 
-    return () => {
-      mountRef.current?.removeChild(renderer.domElement);
-    };
+    const currentRef = mountRef.current;
+
+  return () => {
+    currentRef?.removeChild(renderer.domElement);
+  };
   }, [graphData, width, height]);
 
   return <div ref={mountRef} style={{ width, height }} />;
 };
 
-const mapStateToProps = (state: RootState) => ({
-  graphData: state.graphData
-});
 
-export default connect(mapStateToProps, { fetchGraphData })(ThreeDSurfaceGraph);
+export default connector(ThreeDSurfaceGraph);

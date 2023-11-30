@@ -1,48 +1,50 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { login } from '../../store/slices/authSlice';
-import config from '../../config';
+import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
+import config from '../../config'; // Update the path as needed
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, CircularProgress, Container } from '@mui/material';
 
-function LoginForm() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const dispatch = useDispatch();
+const RegistrationForm: React.FC = () => {
+    const [username, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string>('');
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const validateForm = () => {
+    const validateForm = (): boolean => {
         if (username.trim() === '') {
             setError('Username is required.');
             return false;
         }
-        if (password.trim() === '') {
-            setError('Password is required.');
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            setError('A valid email is required.');
+            return false;
+        }
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long.');
             return false;
         }
         setError('');
         return true;
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         if (!validateForm()) return;
         setIsSubmitting(true);
 
         try {
-            const response = await axios.post(`${config.API_URL}/auth_app/login/`, {
+            await axios.post(`${config.API_URL}/auth_app/register/`, {
                 username,
+                email,
                 password
             });
-            
-            dispatch(login({ user: response.data.user, token: response.data.token }));
-            navigate('/');
+            navigate('/login');
+            // Handle success (e.g., display a success message, navigate to login page, etc.)
         } catch (err) {
-            console.error('Login error:', err);
-            setError('Failed to log in. Please check your username and password.');
+            console.error('Registration error:', err);
+            setError('Failed to register. Please check your details.');
         } finally {
             setIsSubmitting(false);
         }
@@ -56,6 +58,14 @@ function LoginForm() {
                     variant="outlined"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    fullWidth
+                />
+                <TextField
+                    label="Email"
+                    type="email"
+                    variant="outlined"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     fullWidth
                 />
                 <TextField
@@ -73,12 +83,12 @@ function LoginForm() {
                     disabled={isSubmitting}
                     fullWidth
                 >
-                    {isSubmitting ? <CircularProgress size={24} /> : 'Login'}
+                    {isSubmitting ? <CircularProgress size={24} /> : 'Register'}
                 </Button>
                 {error && <div style={{ color: 'red' }}>{error}</div>}
             </form>
         </Container>
     );
-}
+};
 
-export default LoginForm;
+export default RegistrationForm;

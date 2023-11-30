@@ -8,7 +8,7 @@ export interface GraphData {
 }
 
 // Define a type for the slice state
-interface GraphDataState {
+export interface GraphDataState {
   data: GraphData | null;
   loading: boolean;
   error: string | null;
