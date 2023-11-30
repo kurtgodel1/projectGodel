@@ -4,8 +4,21 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { connect } from 'react-redux';
 import { fetchGraphData } from '../store/actions/graphDataActions'; // Adjust the path as needed
 
-const ThreeDSurfaceGraph = ({ width, height, graphData, fetchGraphData }) => {
-  const mountRef = useRef(null);
+interface ThreeDSurfaceGraphProps {
+  width: number;
+  height: number;
+  graphData: {
+    data: {
+      x: number[][];
+      y: number[][];
+      z: number[][];
+    };
+  };
+  fetchGraphData: () => void;
+}
+
+const ThreeDSurfaceGraph: React.FC<ThreeDSurfaceGraphProps> = ({ width, height, graphData, fetchGraphData }) => {
+  const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetchGraphData();
@@ -20,7 +33,7 @@ const ThreeDSurfaceGraph = ({ width, height, graphData, fetchGraphData }) => {
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(width, height);
-    mountRef.current.appendChild(renderer.domElement);
+    mountRef.current?.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -37,14 +50,12 @@ const ThreeDSurfaceGraph = ({ width, height, graphData, fetchGraphData }) => {
         vertices.push(x[i][j + 1], z[i][j + 1], y[i][j + 1]);
       }
     }
-
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
     const surface = new THREE.Mesh(geometry, material);
     scene.add(surface);
-    const mount = mountRef.current;
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -54,14 +65,14 @@ const ThreeDSurfaceGraph = ({ width, height, graphData, fetchGraphData }) => {
     animate();
 
     return () => {
-      mount.removeChild(renderer.domElement);
+      mountRef.current?.removeChild(renderer.domElement);
     };
   }, [graphData, width, height]);
 
   return <div ref={mountRef} style={{ width, height }} />;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   graphData: state.graphData
 });
 

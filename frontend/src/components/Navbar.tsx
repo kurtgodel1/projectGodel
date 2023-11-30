@@ -1,12 +1,14 @@
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { LoginButton, RegisterButton, LogoutButton } from './auth_components/AuthButtons';
+import { LoginButton, RegisterButton, LogoutButton } from './auth_components/AuthButtons'; // Update the path as needed
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
+import { RootState } from '../store/store'; // Update the path as needed
 
-function Navbar() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+const Navbar: React.FC = () => {
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   return (
     <AppBar position="static">
@@ -26,6 +28,6 @@ function Navbar() {
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default Navbar;
