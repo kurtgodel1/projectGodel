@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import GraphDataSerializer
 from silk.profiling.profiler import silk_profile
+from django.core.cache import cache
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -14,10 +15,8 @@ def calculate_power_function(request):
     logger.info("calculate_power_function called")
     n = request.GET.get('n', default=1)  # Default to 1 if not provided
     n = int(n)  # Convert to integer
-
     x_values = np.arange(-10, 11, 1)
     y_values = np.power(x_values, n)
-
     data = {"x": x_values.tolist(), "y": y_values.tolist()}
     return JsonResponse(data)
 

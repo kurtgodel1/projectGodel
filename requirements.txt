@@ -7,7 +7,6 @@ djangorestframework==3.14.0
 gprof2dot==2022.7.29
 numpy==1.26.2
 pycodestyle==2.11.1
-pymemcache==4.0.0
 python-memcached==1.59
 pytz==2023.3.post1
 scipy==1.11.4
