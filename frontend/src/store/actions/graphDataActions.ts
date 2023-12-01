@@ -12,7 +12,7 @@ export const fetchGraphData = () => async (dispatch: Dispatch) => {
   dispatch(fetchGraphDataStart());
 
   try {
-    const response = await axios.get<GraphData>(`${config.API_URL}/api/surface-graph-data/`);
+    const response = await axios.get<GraphData>(`${config.API_URL}/api/surface_graph_data/`);
     dispatch(fetchGraphDataSuccess(response.data));
   } catch (error) {
     if (error instanceof Error) {

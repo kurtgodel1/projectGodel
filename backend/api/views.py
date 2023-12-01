@@ -5,10 +5,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import GraphDataSerializer
 from silk.profiling.profiler import silk_profile
-from django.core.cache import cache
+
+
+#from django.core.cache import cache
+#cache.set('my_key', 'Hello, World!', 30)  # Set a value in the cache
+#print(cache.get('my_key'))  # Retrieve and print the value
+
+
 
 # Set up logging
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 @silk_profile(name='Calculate Power Function')
 def calculate_power_function(request):

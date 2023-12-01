@@ -7,6 +7,9 @@ from .models import User
 from .serializers import UserSerializer, LoginSerializer  # You need to create these serializers
 from django.contrib.auth import logout
 
+
+
+
 class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -16,7 +19,6 @@ class RegisterView(APIView):
             return Response({'token': token.key}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# views.py
 class LoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)

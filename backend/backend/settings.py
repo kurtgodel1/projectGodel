@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'api',
     'auth_app',
     'rest_framework.authtoken',
-    'silk'
+    'silk',
+    'drf_yasg',
+
 
 ]
 
