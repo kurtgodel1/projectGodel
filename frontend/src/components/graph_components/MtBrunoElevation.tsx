@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Plot from 'react-plotly.js';
 
-function MtBrunoElevation() {
-    const [zData, setZData] = useState([]);
+const MtBrunoElevation: React.FC = () => {
+    const [zData, setZData] = useState<number[][]>([]);
 
     useEffect(() => {
         axios.get('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv')
             .then(response => {
-                const rows = response.data.split('\n').map(row => row.split(','));
-                const unpackedData = [];
+                const rows = response.data.split('\n').map((row: string) => row.split(','));
+                const unpackedData: number[][] = [];
 
                 for (let i = 0; i < 24; i++) {
-                    unpackedData.push(rows.map(row => parseFloat(row[i])));
+                    unpackedData.push(rows.map((row: string[]) => parseFloat(row[i])));
                 }
 
                 setZData(unpackedData);
@@ -22,9 +22,7 @@ function MtBrunoElevation() {
 
     return (
         <Plot
-            data={[
-                { z: zData, type: 'surface' }
-            ]}
+            data={[{ z: zData, type: 'surface' }]}
             layout={{
                 title: 'Mt Bruno Elevation',
                 autosize: false,
@@ -34,6 +32,6 @@ function MtBrunoElevation() {
             }}
         />
     );
-}
+};
 
 export default MtBrunoElevation;

@@ -1,8 +1,12 @@
 asgiref==3.7.2
+autopep8==2.0.4
 Django==4.2.7
 django-cors-headers==4.3.1
+django-silk==5.0.4
 djangorestframework==3.14.0
+gprof2dot==2022.7.29
 numpy==1.26.2
+pycodestyle==2.11.1
 pytz==2023.3.post1
 scipy==1.11.4
 sqlparse==0.4.4

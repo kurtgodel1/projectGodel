@@ -5,7 +5,6 @@ import Submit from './SubmitButton'; // Update the path as needed
 import ExampleComponent from './ExampleComponent'; // Update the path as needed
 import ThreeDSurfaceGraph from './ThreeDSurfaceGraph'; // Update the path as needed
 import ForceMassAnimation from './graph_components/ForceMassAnimation'; // Update the path as needed
-import QuiverPlot from './graph_components/QuiverPlot'; // Update the path as needed
 import MtBrunoElevation from './graph_components/MtBrunoElevation'; // Update the path as needed
 import config from '../config'; // Update the path as needed
 
@@ -39,7 +38,6 @@ const PowerGraph: React.FC = () => {
                 <Submit />
             </form>
             <MtBrunoElevation />
-            <QuiverPlot />  
             <ForceMassAnimation />
             <ExampleComponent />
             <ThreeDSurfaceGraph width={720} height={440} />
