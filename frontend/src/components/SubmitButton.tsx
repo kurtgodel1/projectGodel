@@ -1,7 +1,8 @@
+import React from 'react';
 import Button from '@mui/material/Button';
 
-function Submit() {
+const SubmitButton: React.FC = () => {
     return <Button type="submit" variant="contained">Plot</Button>;
-}
+};
 
-export default Submit;
+export default SubmitButton;
