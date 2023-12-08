@@ -7,11 +7,9 @@ from .serializers import GraphDataSerializer
 from silk.profiling.profiler import silk_profile
 
 
-#from django.core.cache import cache
-#cache.set('my_key', 'Hello, World!', 30)  # Set a value in the cache
-#print(cache.get('my_key'))  # Retrieve and print the value
-
-
+# from django.core.cache import cache
+# cache.set('my_key', 'Hello, World!', 30)  # Set a value in the cache
+# print(cache.get('my_key'))  # Retrieve and print the value
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

@@ -13,7 +13,6 @@ class PowerFunctionTests(TestCase):
         # Test the calculate_power_function view
         response = self.client.get(reverse('calculate_power_function'), {'n': 2})
         self.assertEqual(response.status_code, 200)
-        
         data = json.loads(response.content)
         self.assertIn('x', data)
         self.assertIn('y', data)
