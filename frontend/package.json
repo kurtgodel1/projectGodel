@@ -61,6 +61,7 @@
     "@types/react-katex": "^3.0.3",
     "@types/react-plotly.js": "^2.6.3",
     "@types/three": "^0.158.3",
+    "grunt": "^1.6.1",
     "prettier": "^3.1.0"
   }
 }
