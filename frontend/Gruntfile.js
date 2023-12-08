@@ -7,6 +7,6 @@ module.exports = function(grunt) {
     });
   
     // Load plugins here.
-  
+    grunt.registerTask('default', ['taskname']);
     // Register tasks here.
   };
