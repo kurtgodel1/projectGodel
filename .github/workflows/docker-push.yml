@@ -1,0 +1,30 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    # Log in to Docker Hub
+    - name: Docker Login
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+    # Build and push Django backend
+    - name: Build and push Django backend
+      run: |
+        docker-compose build backend
+        docker tag projectgodel-backend ${{ secrets.DOCKER_IMAGE_BACKEND }}
+        docker push ${{ secrets.DOCKER_IMAGE_BACKEND }}
+
+
+    # Build and push React frontend
+    - name: Build and push React frontend
+      run: |
+        docker-compose build frontend
+        docker tag projectgodel-frontend ${{ secrets.DOCKER_IMAGE_FRONTEND }}
+        docker push ${{ secrets.DOCKER_IMAGE_FRONTEND }}
