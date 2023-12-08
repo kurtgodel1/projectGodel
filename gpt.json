@@ -815,8 +815,68 @@
             }
           }
         }
+      },
+      "/repos/{owner}/{repo}/actions/workflows/{workflow_id}": {
+        "get": {
+        "description": "Gets a specific workflow for a specific GitHub repository",
+        "operationId": "getWorkflow",
+        "parameters": [
+            {
+              "name": "owner",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "workflow_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+                },
+              "description": "The ID of the workflow. You can also pass the workflow file name as a string."
+            }
+          ],
+        
+        "deprecated": false
       }
+    },
+    "/repos/{owner}/{repo}/actions/workflows": {
+      "get": {
+      "description": "Lists the workflows in a specific GitHub repository",
+      "operationId": "getAllWorkflows",
+      "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
       
+      "deprecated": false
+    }
+  }
       
     },
     "components": {
