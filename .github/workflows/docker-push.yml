@@ -28,3 +28,6 @@ jobs:
         docker-compose build frontend
         docker tag projectgodel-frontend ${{ secrets.DOCKER_IMAGE_FRONTEND }}
         docker push ${{ secrets.DOCKER_IMAGE_FRONTEND }}
+        
+    - name: List Docker images
+      run: docker images
