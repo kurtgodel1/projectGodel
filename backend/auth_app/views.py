@@ -3,7 +3,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer, LoginSerializer  # You need to create these serializers
+# You need to create these serializers
+from .serializers import UserSerializer, LoginSerializer
 from django.contrib.auth import logout
 
 
