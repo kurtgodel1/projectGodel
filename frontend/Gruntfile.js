@@ -7,6 +7,8 @@ module.exports = function(grunt) {
     });
   
     // Load plugins here.
-    grunt.registerTask('default', ['taskname']);
+    grunt.registerTask('taskname', 'A sample task that logs some stuff.', function() {
+        grunt.log.write('Logging some stuff...').ok();
+      });
     // Register tasks here.
   };
