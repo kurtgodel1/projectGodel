@@ -17,14 +17,25 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: frontend/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm install
+
     - name: Build
       run: |
         cd frontend
-        npm install -g npm@latest
-        npm install
         grunt
