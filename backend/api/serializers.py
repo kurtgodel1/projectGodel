@@ -1,7 +1,10 @@
 # api/serializers.py
 from rest_framework import serializers
 
+
 class GraphDataSerializer(serializers.Serializer):
+
+
     x = serializers.ListField(
         child=serializers.ListField(
             child=serializers.FloatField()
@@ -17,3 +20,4 @@ class GraphDataSerializer(serializers.Serializer):
             child=serializers.FloatField()
         )
     )
+

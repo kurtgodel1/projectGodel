@@ -18,8 +18,9 @@ class PowerFunctionTests(TestCase):
         self.assertIn('y', data)
         # Add more assertions here to validate the response data
 
+
 class SurfaceGraphDataViewTests(TestCase):
-    
+
     def setUp(self):
         # Set up the client to make requests
         self.client = Client()
@@ -28,7 +29,7 @@ class SurfaceGraphDataViewTests(TestCase):
         # Test the SurfaceGraphDataView
         response = self.client.get(reverse('surface_graph_data'))
         self.assertEqual(response.status_code, 200)
-        
+
         data = json.loads(response.content)
         self.assertIn('x', data)
         self.assertIn('y', data)
