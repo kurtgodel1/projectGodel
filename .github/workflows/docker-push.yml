@@ -3,6 +3,7 @@ name: Build and Push Docker Images
 on:
   push:
     branches: [ "trigger_actions" ]
+  workflow_dispatch:
 
 jobs:
   build-and-push:
