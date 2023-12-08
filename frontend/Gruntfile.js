@@ -15,3 +15,4 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['taskname']);  // Add this line
 };
+
