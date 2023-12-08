@@ -2,8 +2,9 @@ from django.test import TestCase, Client
 from django.urls import reverse
 import json
 
+
 class PowerFunctionTests(TestCase):
-    
+
     def setUp(self):
         # Set up the client to make requests
         self.client = Client()
