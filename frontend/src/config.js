@@ -4,7 +4,7 @@ const dev = {
   };
   
   const prod = {
-    API_URL: 'https://your-deployment-url.com',
+    API_URL: 'http://localhost:8000',
   };
   
   const config = process.env.NODE_ENV === 'development' ? dev : prod;
