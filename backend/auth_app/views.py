@@ -3,11 +3,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User
 from .serializers import UserSerializer, LoginSerializer  # You need to create these serializers
 from django.contrib.auth import logout
-
-
 
 
 class RegisterView(APIView):
@@ -18,6 +15,7 @@ class RegisterView(APIView):
             token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class LoginView(APIView):
     def post(self, request):
@@ -32,7 +30,8 @@ class LoginView(APIView):
             else:
                 return Response({"error": "Invalid Credentials"}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+
 class LogoutView(APIView):
     def post(self, request):
         logout(request)

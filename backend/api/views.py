@@ -28,8 +28,9 @@ def calculate_power_function(request):
 
 # api/views.py
 
+
 class SurfaceGraphDataView(APIView):
-    
+
     @silk_profile(name='Surface Graph Data View')
     def get(self, request, format=None):
         logger.info("SurfaceGraphDataView get called")
