@@ -30,5 +30,3 @@ jobs:
         docker tag projectgodel_frontend ${{ secrets.DOCKER_IMAGE_FRONTEND }}
         docker push ${{ secrets.DOCKER_IMAGE_FRONTEND }}
         
-    - name: List Docker images
-      run: docker images
