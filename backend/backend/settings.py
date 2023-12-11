@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-d78+8_n%k3g=o4mh0ooxa*y=!n8z1i8h05v%*837ut!u5vr&=s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://projectgodel-9ba604cd888b.herokuapp.com/','projectgodel.herokuapp.com','0.0.0.0', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['projectgodel-9ba604cd888b.herokuapp.com/','projectgodel.herokuapp.com','0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
