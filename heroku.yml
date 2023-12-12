@@ -2,4 +2,4 @@ build:
   docker:
     web: backend/Dockerfile
 run:
-  web: cd backend && gunicorn your_project.wsgi
+  web: cd backend && gunicorn backend.wsgi
