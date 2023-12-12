@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['projectgodel-9ba604cd888b.herokuapp.com','projectgodel.herokuapp.com','0.0.0.0', 'localhost', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['projectgodel-9ba604cd888b.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://projectgodel-9ba604cd888b.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
