@@ -1,6 +1,6 @@
 // config.js
 const dev = {
-    API_URL: 'https://projectgodel-9ba604cd888b.herokuapp.com',
+    API_URL: 'http://localhost:8000',
   };
   
 const prod = {
