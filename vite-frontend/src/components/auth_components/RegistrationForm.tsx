@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
-import config from '../../config'; // Update the path as needed
+import config from '../../config';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, CircularProgress, Container } from '@mui/material';
 

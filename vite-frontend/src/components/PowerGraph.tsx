@@ -37,10 +37,6 @@ const PowerGraph: React.FC = () => {
                 </label>
                 <Submit />
             </form>
-            <MtBrunoElevation />
-            <ForceMassAnimation />
-            <ExampleComponent />
-            <ThreeDSurfaceGraph width={720} height={440} />
             <Plot
                 data={[{
                     x: xData,
@@ -51,6 +47,10 @@ const PowerGraph: React.FC = () => {
                 }]}
                 layout={{ width: 720, height: 440, title: 'Graph of x^n' }}
             />
+            <MtBrunoElevation />
+            <ForceMassAnimation />
+            <ExampleComponent />
+            <ThreeDSurfaceGraph width={720} height={440} />
         </div>
     );
 };

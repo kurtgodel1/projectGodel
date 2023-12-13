@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PowerGraph from './components/PowerGraph';
 import MathExpression from './components/MathExpression';
@@ -15,8 +14,8 @@ function App() {
   return (
       <Router>
           <Navbar />
-          <Container>
-              <Box my={4}>
+          <Container style={{ width: '100%' }}>
+              <Box my={4} style={{ width: '100%' }}>
                   <Routes>
                       <Route path="/login" element={<LoginForm />} />
                       <Route path="/register" element={<RegistrationForm />} />
