@@ -88,6 +88,9 @@ const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
                             <Button component={Link} to="/power">PowerGraph</Button>
                         </ListItem>
                         <ListItem>
+                            <Button component={Link} to="/bruno">Bruno</Button>
+                        </ListItem>
+                        <ListItem>
                             <Button component={Link} to="/math">Math</Button>
                         </ListItem>
                         {!isLoggedIn && (
@@ -109,8 +112,8 @@ const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
                 </Box>
             </DrawerContainer>
 
-            <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
-                <Container maxWidth="lg">
+            <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8, display: 'flex', flexDirection: 'column' }}>
+                <Container maxWidth="lg" sx={{ flexGrow: 1 }}>
                     {children}
                 </Container>
 

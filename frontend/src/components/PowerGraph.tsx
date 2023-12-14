@@ -47,7 +47,6 @@ const PowerGraph: React.FC = () => {
                 }]}
                 layout={{ width: 720, height: 440, title: 'Graph of x^n' }}
             />
-            <MtBrunoElevation />
             <ForceMassAnimation />
             <ExampleComponent />
             <ThreeDSurfaceGraph width={720} height={440} />
