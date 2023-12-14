@@ -7,6 +7,8 @@ import CounterComponent from './components/CounterComponent';
 import LoginForm from './components/auth_components/LoginForm';
 import RegistrationForm from './components/auth_components/RegistrationForm';
 import Navbar from './components/Navbar';
+import { SpeedInsights } from '@vercel/speed-insights/react';
+
 // import './App.css
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
                   </Routes>
               </Box>
           </Container>
+          <SpeedInsights />
       </Router>
   );
 }

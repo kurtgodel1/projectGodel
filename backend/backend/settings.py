@@ -13,7 +13,22 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+# settings.py
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
+
+sentry_sdk.init(
+    dsn="https://79406d80d7d3f0cb9430c4c2f6742a43@o4506393328877568.ingest.sentry.io/4506393334775808",
+    integrations=[DjangoIntegration()],
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,6 +145,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOW_HEADERS = ["baggage","sentry-trace"]
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -154,18 +171,44 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'django_error.log',
+            'formatter': 'verbose',
+        },
         'console': {
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'formatter': 'simple',
         },
     },
     'loggers': {
         'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'myapp': {
             'handlers': ['console'],
-            'level': 'INFO',
+            'level': 'DEBUG',
+            'propagate': True,
         },
     },
 }
+
