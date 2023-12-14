@@ -13,6 +13,6 @@ module.exports = function(grunt) {
         grunt.log.write('Logging some stuff...').ok();
     });
 
-    grunt.registerTask('default', ['taskname']);  // Add this line
+    grunt.registerTask('default', ['taskname']);  // Add this
 };
 
