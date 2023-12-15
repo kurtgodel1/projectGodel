@@ -42,4 +42,6 @@ export const store = configureStore({
 // Create persistor
 export const persistor = persistStore(store);
 
+export type AppDispatch = typeof store.dispatch;
+
 export default store;

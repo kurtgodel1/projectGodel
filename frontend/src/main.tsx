@@ -7,6 +7,17 @@ import { store } from './store/store'; // Update the path as needed
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor} from './store/store';
 import * as Sentry from "@sentry/react";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+    typography: {
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', // Change this to your desired font
+        h6: {
+            fontFamily: '"Roboto Mono", "Monospace", sans-serif', // Change this to your desired font for h6 elements
+        },
+    },
+});
+
 
 Sentry.init({
   dsn: "https://22aa0fc206621f8d2fe95406fefc3bdf@o4506393328877568.ingest.sentry.io/4506393381240832",
@@ -27,10 +38,12 @@ Sentry.init({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 <React.StrictMode>
-  <Provider store={store}>
-    <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
-      <App />
-    </PersistGate>
-  </Provider>
+    <Provider store={store}>
+      <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
 </React.StrictMode>
 )

@@ -37,7 +37,7 @@ class SurfaceGraphDataView(APIView):
         x = np.linspace(-5, 5, 100)
         y = np.linspace(-5, 5, 100)
         X, Y = np.meshgrid(x, y)
-        Z = np.sin(np.sqrt(X**2 + Y**2))
+        Z = np.sin(X**3 + Y)
 
         data = {
             'x': X.tolist(),

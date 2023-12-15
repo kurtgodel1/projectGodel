@@ -63,7 +63,18 @@ const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6">My Application</Typography>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                        Scientific Calculations
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                        {!isLoggedIn && (
+                            <>
+                            <LoginButton />
+                            <RegisterButton />
+                            </>
+                        )}
+                        {isLoggedIn && <LogoutButton />}
+                    </Box>
                 </Toolbar>
             </AppBarStyled>
 
@@ -93,30 +104,15 @@ const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
                         <ListItem>
                             <Button component={Link} to="/math">Math</Button>
                         </ListItem>
-                        {!isLoggedIn && (
-                            <div>
-                                <ListItem>
-                                    <LoginButton />
-                                </ListItem>
-                                <ListItem>
-                                    <RegisterButton />
-                                </ListItem>
-                            </div>
-                            )}
-                        {isLoggedIn && 
-                            <ListItem>
-                                <LogoutButton />
-                            </ListItem>}
                         {/* More items */}
                     </List>
                 </Box>
             </DrawerContainer>
 
             <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8, display: 'flex', flexDirection: 'column' }}>
-                <Container maxWidth="lg" sx={{ flexGrow: 1 }}>
+                <Container maxWidth="lg" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                     {children}
                 </Container>
-
                 <Box component="footer" sx={{ textAlign: 'center', py: 2, mt: 4, borderTop: 1, borderColor: 'divider' }}>
                     <Typography variant="body2">© 2023 My Application</Typography>
                 </Box>
